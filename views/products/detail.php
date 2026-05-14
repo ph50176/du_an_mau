@@ -24,9 +24,13 @@
             <?= $product['description'] ?>
         </p>
 
-        <button>
-            Thêm vào giỏ hàng
-        </button>
+        <a href="?action=add-to-cart&id=<?= $product['id'] ?>">
+
+    <button>
+        Thêm vào giỏ hàng
+    </button>
+
+</a>
 
     </div>
 

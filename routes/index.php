@@ -15,7 +15,24 @@ match ($action) {
 
     'login'             => (new AuthController)->login(),
     'register'          => (new AuthController)->register(),
+    'logout'            => (new AuthController)->logout(),
+
 
     'admin'             => (new AdminController)->dashboard(),
+
+    'admin-products'
+        => (new AdminProductController)->index(),
+
+    'admin-product-create'
+        => (new AdminProductController)->create(),
+
+    'admin-product-delete'
+        => (new AdminProductController)->delete(),
+
+    'admin-users'
+    => (new AdminUserController)->index(),
+
+    'admin-user-delete'
+        => (new AdminUserController)->delete(),
 };
 
