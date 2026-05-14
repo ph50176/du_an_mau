@@ -22,7 +22,9 @@
 
             foreach($carts as $cart):
 
-                $subtotal = $cart['price'] * $cart['quantity'];
+                $subtotal =
+                    $cart['price']
+                    * $cart['quantity'];
 
                 $total += $subtotal;
 
@@ -44,7 +46,8 @@
                 </td>
 
                 <td>
-                    <?= number_format($cart['price']) ?> VNĐ
+                    <?= number_format($cart['price']) ?>
+                    VNĐ
                 </td>
 
                 <td>
@@ -52,7 +55,8 @@
                 </td>
 
                 <td>
-                    <?= number_format($subtotal) ?> VNĐ
+                    <?= number_format($subtotal) ?>
+                    VNĐ
                 </td>
 
             </tr>
@@ -62,8 +66,30 @@
     </table>
 
     <h2>
+
         Tổng tiền:
         <?= number_format($total) ?> VNĐ
+
     </h2>
+
+    <br>
+
+    <a href="?action=checkout">
+
+        <button
+            style="
+                width:220px;
+                height:50px;
+                background:#f19916;
+                color:white;
+                border:none;
+                border-radius:10px;
+                font-size:16px;
+            "
+        >
+            Thanh toán
+        </button>
+
+    </a>
 
 <?php endif; ?>

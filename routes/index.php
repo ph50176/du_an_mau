@@ -13,6 +13,8 @@ match ($action) {
 
     'checkout'          => (new OrderController)->checkout(),
 
+    'order-checkout'    => (new OrderController)->checkout(),   
+
     'login'             => (new AuthController)->login(),
     'register'          => (new AuthController)->register(),
     'logout'            => (new AuthController)->logout(),
@@ -34,5 +36,17 @@ match ($action) {
 
     'admin-user-delete'
         => (new AdminUserController)->delete(),
+
+    'admin-categories'
+    => (new AdminCategoryController)->index(),
+
+    'admin-category-create'
+        => (new AdminCategoryController)->create(),
+
+    'admin-category-delete'
+        => (new AdminCategoryController)->delete(),
+
+        'admin-orders'
+    => (new AdminOrderController)->index(),
 };
 

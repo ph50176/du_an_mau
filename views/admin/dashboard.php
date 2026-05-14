@@ -8,6 +8,24 @@
         </a>
     </li>
 
+    <br>
+
+    <li>
+        <a href="?action=admin-categories">
+            Quản lý danh mục
+        </a>
+    </li>
+
+    <br>
+
+    <li>
+        <a href="?action=admin-orders">
+            Quản lý đơn hàng
+        </a>
+    </li>
+
+    <br>
+
     <li>
         <a href="?action=admin-users">
             Quản lý người dùng

@@ -115,15 +115,15 @@ body{
     color: #f19916;
 }
 
-/* ================= REGISTER BUTTON ================= */
+/* ================= LOGIN BUTTON ================= */
 
-.register-btn{
+.login-btn{
     color: black;
     padding: 10px 18px;
     border-radius: 30px;
 }
 
-.register-btn::after{
+.login-btn::after{
     display: none;
 }
 
@@ -219,7 +219,7 @@ body{
             Hỗ trợ
         </a>
 
-        <a href="?action=register" class="register-btn">
+        <a href="?action=login" class="login-btn">
             Đăng nhập
         </a>
 
