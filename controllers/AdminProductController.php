@@ -61,4 +61,53 @@ class AdminProductController
 
         header('Location: ?action=admin-products');
     }
+
+    public function edit()
+{
+    require_once './configs/checkAdmin.php';
+
+    $id = $_GET['id'];
+
+    $productModel = new Product();
+
+    $product = $productModel->find($id);
+
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+        $name = $_POST['name'];
+
+        $price = $_POST['price'];
+
+        $description = $_POST['description'];
+
+        $image = $product['image'];
+
+        // upload ảnh mới
+        if(!empty($_FILES['image']['name'])){
+
+            $image = time() . $_FILES['image']['name'];
+
+            move_uploaded_file(
+                $_FILES['image']['tmp_name'],
+                './assets/uploads/' . $image
+            );
+        }
+
+        $productModel->updateProduct(
+            $id,
+            $name,
+            $price,
+            $image,
+            $description
+        );
+
+        header('Location: ?action=admin-products');
+
+        exit;
+    }
+
+    $view = 'admin/products/edit.php';
+
+    require_once PATH_VIEW_MAIN;
+}
 }

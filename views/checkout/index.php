@@ -1,156 +1,182 @@
-<h1>Thanh toán</h1>
+<style>
 
-<?php if($product): ?>
+.checkout-page{
 
-    <!-- MUA NGAY -->
+    width:700px;
 
-    <div style="display:flex; gap:20px;">
+    margin:50px auto;
 
-        <img
-            src="<?= BASE_ASSETS_UPLOADS . $product['image'] ?>"
-            width="200"
+    background:white;
+
+    padding:35px;
+
+    border-radius:16px;
+
+    box-shadow:0 5px 25px rgba(0,0,0,0.08);
+}
+
+.checkout-title{
+
+    font-size:32px;
+
+    font-weight:bold;
+
+    margin-bottom:30px;
+
+    text-align:center;
+}
+
+.checkout-group{
+
+    margin-bottom:20px;
+}
+
+.checkout-label{
+
+    display:block;
+
+    margin-bottom:10px;
+
+    font-weight:bold;
+
+    color:#222;
+}
+
+.checkout-input{
+
+    width:100%;
+
+    height:50px;
+
+    border:1px solid #ddd;
+
+    border-radius:10px;
+
+    padding:0 15px;
+
+    font-size:15px;
+}
+
+.checkout-textarea{
+
+    width:100%;
+
+    height:120px;
+
+    border:1px solid #ddd;
+
+    border-radius:10px;
+
+    padding:15px;
+
+    font-size:15px;
+
+    resize:none;
+}
+
+.checkout-btn{
+
+    width:100%;
+
+    height:55px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#f19916;
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.checkout-btn:hover{
+
+    background:#d8840d;
+}
+
+</style>
+
+<form
+    method="POST"
+    action="?action=order-checkout"
+    class="checkout-page"
+>
+
+    <h1 class="checkout-title">
+
+        Thanh toán đơn hàng
+
+    </h1>
+
+    <!-- NAME -->
+    <div class="checkout-group">
+
+        <label class="checkout-label">
+
+            Họ và tên
+
+        </label>
+
+        <input
+            type="text"
+            name="customer_name"
+            class="checkout-input"
+            required
         >
-
-        <div>
-
-            <h2>
-                <?= $product['name'] ?>
-            </h2>
-
-            <h3 style="color:red;">
-
-                <?= number_format($product['price']) ?>
-                VNĐ
-
-            </h3>
-
-        </div>
 
     </div>
 
-<?php else: ?>
+    <!-- PHONE -->
+    <div class="checkout-group">
 
-    <!-- GIỎ HÀNG -->
+        <label class="checkout-label">
 
-    <?php
+            Số điện thoại
 
-        $total = 0;
+        </label>
 
-        foreach($carts as $cart):
+        <input
+            type="text"
+            name="phone"
+            class="checkout-input"
+            required
+        >
 
-            $total +=
-                $cart['price']
-                * $cart['quantity'];
+    </div>
 
-    ?>
+    <!-- ADDRESS -->
+    <div class="checkout-group">
 
-        <div style="
-            display:flex;
-            gap:20px;
-            margin-bottom:20px;
-        ">
+        <label class="checkout-label">
 
-            <img
-                src="<?= BASE_ASSETS_UPLOADS . $cart['image'] ?>"
-                width="120"
-            >
+            Địa chỉ
 
-            <div>
+        </label>
 
-                <h3>
-                    <?= $cart['name'] ?>
-                </h3>
+        <textarea
+            name="address"
+            class="checkout-textarea"
+            required
+        ></textarea>
 
-                <p>
+    </div>
 
-                    SL:
-                    <?= $cart['quantity'] ?>
-
-                </p>
-
-                <h4 style="color:red;">
-
-                    <?= number_format(
-                        $cart['price']
-                        * $cart['quantity']
-                    ) ?>
-
-                    VNĐ
-
-                </h4>
-
-            </div>
-
-        </div>
-
-    <?php endforeach; ?>
-
-    <h2>
-
-        Tổng tiền:
-        <?= number_format($total) ?> VNĐ
-
-    </h2>
-
-<?php endif; ?>
-
-<hr>
-
-<h2>Thông tin nhận hàng</h2>
-
-<form method="POST" action="?action=order-checkout">
-
-    <input
-    type="text"
-    name="customer_name"
-    placeholder="Họ tên"
-    required
-    style="
-        width:400px;
-        height:40px;
-    "
->
-
-    <br><br>
-
-    <input
-    type="text"
-    name="phone"
-    placeholder="Số điện thoại"
-    required
-    style="
-        width:400px;
-        height:40px;
-    "
->
-
-    <br><br>
-
-    <input
-    type="text"
-    name="address"
-    placeholder="Địa chỉ"
-    required
-    style="
-        width:400px;
-        height:40px;
-    "
->
-
-    <br><br>
-
+    <!-- BUTTON -->
     <button
-        style="
-            width:200px;
-            height:50px;
-            background:#f19916;
-            border:none;
-            color:white;
-            border-radius:10px;
-            font-size:16px;
-        "
+        type="submit"
+        class="checkout-btn"
     >
+
         Đặt hàng
+
     </button>
 
 </form>

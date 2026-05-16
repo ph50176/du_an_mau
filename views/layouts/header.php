@@ -175,7 +175,114 @@ body{
     }
 
 }
+/* ================= USER ================= */
 
+.user-dropdown{
+
+    position: relative;
+
+    cursor: pointer;
+}
+
+/* AVATAR */
+
+.user-avatar{
+
+    width: 45px;
+
+    height: 45px;
+
+    border-radius: 50%;
+
+    background: #f19916;
+
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    transition: 0.3s;
+}
+
+.user-avatar:hover{
+
+    background: #db8508;
+}
+
+/* DROPDOWN */
+
+.dropdown-menu{
+
+    position: absolute;
+
+    top: 55px;
+
+    right: 0;
+
+    width: 160px;
+
+    background: white;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transform: translateY(10px);
+
+    transition: 0.3s;
+
+    z-index: 999;
+}
+
+/* SHOW MENU */
+
+.user-dropdown:hover .dropdown-menu{
+
+    opacity: 1;
+
+    visibility: visible;
+
+    transform: translateY(0);
+}
+
+/* MENU ITEM */
+
+.dropdown-menu a{
+
+    display: block;
+
+    padding: 10px 10px;
+
+    text-decoration: none;
+
+    color: #222;
+
+    font-size: 15px;
+
+    transition: 0.3s;\
+    
+}
+
+.dropdown-menu a:hover{
+
+    background: #f7f7f7;
+
+    color: #f19916;
+    margin-left: 15px;
+}
 </style>
 
 <header class="header">
@@ -219,9 +326,40 @@ body{
             Hỗ trợ
         </a>
 
-        <a href="?action=login" class="login-btn">
-            Đăng nhập
-        </a>
+        <?php if(isset($_SESSION['user'])): ?>
+
+    <!-- USER DROPDOWN -->
+    <div class="user-dropdown">
+
+        <!-- AVATAR -->
+        <div class="user-avatar">
+
+            <?= strtoupper(substr($_SESSION['user']['name'], 0, 1)) ?>
+
+        </div>
+
+        <!-- MENU -->
+        <div class="dropdown-menu">
+
+            <a href="?action=logout">
+
+                Đăng xuất
+
+            </a>
+
+        </div>
+
+    </div>
+
+<?php else: ?>
+
+    <a href="?action=login" class="login-btn">
+
+        Đăng nhập
+
+    </a>
+
+<?php endif; ?>
 
         
 

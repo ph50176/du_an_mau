@@ -2,9 +2,8 @@
 
 class Order extends BaseModel
 {
-    // TẠO ĐƠN HÀNG
+    // Tạo đơn hàng
     public function createOrder(
-        $user_id,
         $customer_name,
         $phone,
         $address,
@@ -13,14 +12,12 @@ class Order extends BaseModel
 
         $sql = "
             INSERT INTO orders(
-                user_id,
                 customer_name,
                 phone,
                 address,
                 total_price
             )
             VALUES(
-                :user_id,
                 :customer_name,
                 :phone,
                 :address,
@@ -30,27 +27,22 @@ class Order extends BaseModel
 
         $stmt = $this->conn->prepare($sql);
 
-        $stmt->bindParam(':user_id', $user_id);
-
-        $stmt->bindParam(':customer_name', $customer_name);
-
-        $stmt->bindParam(':phone', $phone);
-
-        $stmt->bindParam(':address', $address);
-
-        $stmt->bindParam(':total_price', $total_price);
-
-        $stmt->execute();
+        $stmt->execute([
+            ':customer_name' => $customer_name,
+            ':phone' => $phone,
+            ':address' => $address,
+            ':total_price' => $total_price
+        ]);
 
         return $this->conn->lastInsertId();
     }
 
-    // THÊM CHI TIẾT ĐƠN HÀNG
-    public function createOrderItem(
+    // Thêm sản phẩm vào order_items
+    public function insertOrderItem(
         $order_id,
         $product_id,
         $product_name,
-        $product_price,
+        $price,
         $quantity
     ) {
 
@@ -59,34 +51,30 @@ class Order extends BaseModel
                 order_id,
                 product_id,
                 product_name,
-                product_price,
+                price,
                 quantity
             )
             VALUES(
                 :order_id,
                 :product_id,
                 :product_name,
-                :product_price,
+                :price,
                 :quantity
             )
         ";
 
         $stmt = $this->conn->prepare($sql);
 
-        $stmt->bindParam(':order_id', $order_id);
-
-        $stmt->bindParam(':product_id', $product_id);
-
-        $stmt->bindParam(':product_name', $product_name);
-
-        $stmt->bindParam(':product_price', $product_price);
-
-        $stmt->bindParam(':quantity', $quantity);
-
-        return $stmt->execute();
+        return $stmt->execute([
+            ':order_id' => $order_id,
+            ':product_id' => $product_id,
+            ':product_name' => $product_name,
+            ':price' => $price,
+            ':quantity' => $quantity
+        ]);
     }
 
-    // LẤY TẤT CẢ ĐƠN HÀNG
+    // Admin lấy đơn hàng
     public function getAllOrders()
     {
         $sql = "
@@ -101,4 +89,64 @@ class Order extends BaseModel
 
         return $stmt->fetchAll();
     }
+
+    public function findById($id)
+{
+    $sql = "
+        SELECT *
+        FROM orders
+        WHERE id = :id
+    ";
+
+    $stmt = $this->conn->prepare($sql);
+
+    $stmt->bindParam(':id', $id);
+
+    $stmt->execute();
+
+    return $stmt->fetch();
+}
+
+public function updateStatus($id, $status)
+{
+    $sql = "
+        UPDATE orders
+        SET status = :status
+        WHERE id = :id
+    ";
+
+    $stmt = $this->conn->prepare($sql);
+
+    return $stmt->execute([
+        ':id' => $id,
+        ':status' => $status
+    ]);
+}
+
+public function delete($id)
+{
+    // Xóa sản phẩm trong order_items trước
+    $sqlItem = "
+        DELETE FROM order_items
+        WHERE order_id = :order_id
+    ";
+
+    $stmtItem = $this->conn->prepare($sqlItem);
+
+    $stmtItem->execute([
+        ':order_id' => $id
+    ]);
+
+    // Xóa đơn hàng
+    $sql = "
+        DELETE FROM orders
+        WHERE id = :id
+    ";
+
+    $stmt = $this->conn->prepare($sql);
+
+    return $stmt->execute([
+        ':id' => $id
+    ]);
+}
 }

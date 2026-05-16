@@ -10,11 +10,25 @@ match ($action) {
 
     'cart'              => (new CartController)->index(),
     'add-to-cart'       => (new CartController)->add(),
+    'delete-cart'       => (new CartController)->delete(),
+    'increase-cart'     => (new CartController)->increase(),
+    'decrease-cart'     => (new CartController)->decrease(),
 
-    'checkout'          => (new OrderController)->checkout(),
+    'checkout'
+    => (new OrderController)->checkout(),
 
-    'order-checkout'    => (new OrderController)->checkout(),   
+'order-checkout'
+    => (new OrderController)->order(),
 
+    'admin-order-confirm'
+        => (new AdminOrderController)->confirm(),
+    'admin-order-cancel'
+        => (new AdminOrderController)->cancel(),
+    'admin-order-delete'
+        => (new AdminOrderController)->delete(),
+        'admin-product-edit'
+        => (new AdminProductController)->edit(),
+    
     'login'             => (new AuthController)->login(),
     'register'          => (new AuthController)->register(),
     'logout'            => (new AuthController)->logout(),
